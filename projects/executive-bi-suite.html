@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Executive Business Intelligence Suite | Wandile Bingo</title>
+
+  <meta name="description"
+        content="Executive Business Intelligence Suite case study by Wandile Bingo using Excel, Power Pivot, DAX and relational data modelling.">
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: #f7f8fa;
+      color: #172033;
+      line-height: 1.65;
+    }
+
+    .container {
+      width: min(1120px, 90%);
+      margin: auto;
+    }
+
+    nav {
+      background: #ffffff;
+      border-bottom: 1px solid #e6e8ec;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .nav-inner {
+      height: 72px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .brand {
+      font-weight: 700;
+      font-size: 1.05rem;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 24px;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: #475467;
+      font-size: .9rem;
+    }
+
+    .nav-links a:hover {
+      color: #111827;
+    }
+
+    .hero {
+      background: white;
+      padding: 95px 0 70px;
+    }
+
+    .eyebrow {
+      text-transform: uppercase;
+      letter-spacing: .14em;
+      font-size: .76rem;
+      font-weight: 700;
+      color: #667085;
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      font-size: clamp(2.8rem, 6vw, 5rem);
+      line-height: 1;
+      letter-spacing: -.045em;
+      color: #101828;
+      max-width: 850px;
+    }
+
+    .hero-summary {
+      max-width: 760px;
+      margin-top: 28px;
+      color: #667085;
+      font-size: 1.08rem;
+    }
+
+    .tools {
+      margin-top: 20px;
+      font-size: .9rem;
+      font-weight: 600;
+      color: #475467;
+    }
+
+    .hero-actions {
+      margin-top: 34px;
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .button {
+      display: inline-block;
+      padding: 13px 22px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: .9rem;
+    }
+
+    .button-primary {
+      background: #172033;
+      color: white;
+    }
+
+    .button-secondary {
+      border: 1px solid #d0d5dd;
+      color: #344054;
+      background: white;
+    }
+
+    .kpis {
+      background: #111827;
+      color: white;
+      padding: 34px 0;
+    }
+
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 30px;
+    }
+
+    .kpi-value {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .kpi-label {
+      color: #b7c0ce;
+      font-size: .83rem;
+    }
+
+    section {
+      padding: 90px 0;
+    }
+
+    .section-label {
+      text-transform: uppercase;
+      letter-spacing: .13em;
+      color: #667085;
+      font-size: .74rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    h2 {
+      font-size: clamp(2rem, 4vw, 3rem);
+      line-height: 1.1;
+      letter-spacing: -.035em;
+      margin-bottom: 24px;
+      color: #101828;
+    }
+
+    h3 {
+      font-size: 1.25rem;
+      margin-bottom: 10px;
+      color: #101828;
+    }
+
+    p {
+      color: #667085;
+    }
+
+    .dashboard-image {
+      width: 100%;
+      display: block;
+      border: 1px solid #e4e7ec;
+      border-radius: 10px;
+      box-shadow: 0 18px 40px rgba(16,24,40,.08);
+    }
+
+    .two-column {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 70px;
+      align-items: start;
+    }
+
+    .challenge-box {
+      background: white;
+      border: 1px solid #e4e7ec;
+      border-radius: 10px;
+      padding: 34px;
+    }
+
+    .architecture {
+      background: #ffffff;
+    }
+
+    .dataset-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-top: 38px;
+    }
+
+    .dataset {
+      border: 1px solid #e4e7ec;
+      background: #f9fafb;
+      padding: 20px;
+      border-radius: 8px;
+    }
+
+    .dataset strong {
+      display: block;
+      margin-bottom: 5px;
+      color: #101828;
+    }
+
+    .dataset span {
+      color: #667085;
+      font-size: .86rem;
+    }
+
+    .findings {
+      background: #111827;
+    }
+
+    .findings h2 {
+      color: white;
+    }
+
+    .findings .section-label {
+      color: #98a2b3;
+    }
+
+    .finding-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+
+    .finding-card {
+      background: #182230;
+      padding: 30px;
+      border-radius: 10px;
+    }
+
+    .finding-number {
+      color: white;
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .finding-card h3 {
+      color: white;
+    }
+
+    .finding-card p {
+      color: #b7c0ce;
+    }
+
+    .recommendations {
+      display: grid;
+      gap: 18px;
+      margin-top: 35px;
+    }
+
+    .recommendation {
+      background: white;
+      border: 1px solid #e4e7ec;
+      border-radius: 9px;
+      padding: 28px;
+      display: grid;
+      grid-template-columns: 60px 1fr;
+      gap: 18px;
+    }
+
+    .rec-number {
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: #98a2b3;
+    }
+
+    .skills {
+      background: white;
+    }
+
+    .skill-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+      margin-top: 35px;
+    }
+
+    .skill {
+      border-top: 1px solid #d0d5dd;
+      padding-top: 18px;
+    }
+
+    .skill p {
+      font-size: .9rem;
+    }
+
+    .cta {
+      text-align: center;
+      background: #ffffff;
+    }
+
+    .cta p {
+      max-width: 600px;
+      margin: 0 auto 28px;
+    }
+
+    footer {
+      background: #111827;
+      color: #98a2b3;
+      padding: 28px 0;
+      font-size: .82rem;
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    @media (max-width: 760px) {
+      .kpi-grid,
+      .dataset-grid,
+      .finding-grid,
+      .skill-grid,
+      .two-column {
+        grid-template-columns: 1fr;
+      }
+
+      .recommendation {
+        grid-template-columns: 1fr;
+      }
+
+      .nav-links {
+        gap: 12px;
+      }
+
+      .footer-inner {
+        flex-direction: column;
+      }
+
+      section {
+        padding: 65px 0;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<nav>
+  <div class="container nav-inner">
+    <div class="brand">WANDILE BINGO</div>
+
+    <div class="nav-links">
+      <a href="../index.html">Home</a>
+      <a href="../index.html#work">Projects</a>
+      <a href="../index.html#about">About</a>
+      <a href="../index.html#contact">Contact</a>
+    </div>
+  </div>
+</nav>
+
+
+<header class="hero">
+  <div class="container">
+
+    <div class="eyebrow">01 / Excel Business Intelligence</div>
+
+    <h1>Executive Business Intelligence Suite</h1>
+
+    <p class="hero-summary">
+      An executive decision-support environment connecting eight operational
+      datasets to provide management with a consolidated view of revenue,
+      customer value, product performance, geographic concentration and
+      order fulfilment.
+    </p>
+
+    <div class="tools">
+      Microsoft Excel · Power Pivot · DAX · Relational Data Modelling · Executive Reporting
+    </div>
+
+    <div class="hero-actions">
+      <a class="button button-primary"
+         href="../assets/documents/executive-bi-case-study.pdf"
+         target="_blank">
+        View Full Case Study
+      </a>
+
+      <a class="button button-secondary" href="../index.html#work">
+        Back to Projects
+      </a>
+    </div>
+
+  </div>
+</header>
+
+
+<section class="kpis">
+  <div class="container kpi-grid">
+
+    <div>
+      <div class="kpi-value">R9.60m</div>
+      <div class="kpi-label">Total Revenue</div>
+    </div>
+
+    <div>
+      <div class="kpi-value">326</div>
+      <div class="kpi-label">Customer Orders</div>
+    </div>
+
+    <div>
+      <div class="kpi-value">122</div>
+      <div class="kpi-label">Customers</div>
+    </div>
+
+    <div>
+      <div class="kpi-value">92.9%</div>
+      <div class="kpi-label">Orders Shipped</div>
+    </div>
+
+  </div>
+</section>
+
+
+<section>
+  <div class="container">
+
+    <div class="section-label">Solution</div>
+
+    <h2>A connected management view of business performance.</h2>
+
+    <p style="max-width:760px; margin-bottom:42px;">
+      The solution consolidates fragmented operational records into a
+      navigable management reporting environment. Slicers allow executives
+      to interrogate transactional performance by period, geography and
+      product line while preserving reporting controls where the underlying
+      source data does not support valid historical filtering.
+    </p>
+
+    <img
+      class="dashboard-image"
+      src="../assets/images/executive-bi/executive-bi-dashboard.png"
+      alt="Executive Business Intelligence Suite dashboard">
+
+  </div>
+</section>
+
+
+<section class="architecture">
+  <div class="container">
+
+    <div class="two-column">
+
+      <div>
+        <div class="section-label">Business Challenge</div>
+        <h2>Eight datasets. One management question.</h2>
+
+        <p>
+          Orders, customers, payments, products and organisational records
+          existed as separate operational datasets. Individually they answered
+          narrow questions, but management lacked a connected view of how the
+          business was performing and what was driving the results.
+        </p>
+      </div>
+
+      <div class="challenge-box">
+        <h3>Management questions addressed</h3>
+
+        <p>
+          How is revenue developing over time? Where is demand concentrated?
+          Which products and markets generate the greatest value? How dependent
+          is the business on its largest customers? Where are fulfilment
+          exceptions occurring, and what management actions follow?
+        </p>
+      </div>
+
+    </div>
+
+
+    <div class="dataset-grid">
+
+      <div class="dataset">
+        <strong>Orders</strong>
+        <span>326 order records</span>
+      </div>
+
+      <div class="dataset">
+        <strong>Order Details</strong>
+        <span>2,996 transaction lines</span>
+      </div>
+
+      <div class="dataset">
+        <strong>Customers</strong>
+        <span>122 customer records</span>
+      </div>
+
+      <div class="dataset">
+        <strong>Payments</strong>
+        <span>273 payment records</span>
+      </div>
+
+      <div class="dataset">
+        <strong>Products</strong>
+        <span>110 product records</span>
+      </div>
+
+      <div class="dataset">
+        <strong>Product Lines</strong>
+        <span>7 portfolio categories</span>
+      </div>
+
+      <div class="dataset">
+        <strong>Employees</strong>
+        <span>23 employee records</span>
+      </div>
+
+      <div class="dataset">
+        <strong>Offices</strong>
+        <span>7 organisational locations</span>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+
+<section class="findings">
+  <div class="container">
+
+    <div class="section-label">Key Findings</div>
+    <h2>What the analysis revealed.</h2>
+
+    <div class="finding-grid">
+
+      <div class="finding-card">
+        <div class="finding-number">+36%</div>
+        <h3>Revenue growth</h3>
+        <p>
+          Revenue increased from approximately R3.32m in 2022 to R4.52m in
+          2023 across the two complete reporting years.
+        </p>
+      </div>
+
+      <div class="finding-card">
+        <div class="finding-number">Q4</div>
+        <h3>Recurring demand peak</h3>
+        <p>
+          Q4 generated approximately R1.78m in 2022 and R1.91m in 2023,
+          identifying a recurring seasonal demand pattern.
+        </p>
+      </div>
+
+      <div class="finding-card">
+        <div class="finding-number">40%</div>
+        <h3>Product concentration</h3>
+        <p>
+          Classic Cars generated approximately R3.85m and represented about
+          40% of total revenue.
+        </p>
+      </div>
+
+      <div class="finding-card">
+        <div class="finding-number">34%</div>
+        <h3>Geographic concentration</h3>
+        <p>
+          The United States generated approximately R3.27m, representing
+          around 34% of total revenue.
+        </p>
+      </div>
+
+      <div class="finding-card">
+        <div class="finding-number">28%</div>
+        <h3>Top-customer concentration</h3>
+        <p>
+          The top 10 customers contributed approximately R2.68m, or about
+          28% of total revenue.
+        </p>
+      </div>
+
+      <div class="finding-card">
+        <div class="finding-number">303 / 326</div>
+        <h3>Order fulfilment</h3>
+        <p>
+          303 of 326 orders were shipped, leaving a focused population of
+          operational exceptions for review.
+        </p>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+
+<section>
+  <div class="container">
+
+    <div class="section-label">Management Recommendations</div>
+
+    <h2>Turning analytical findings into management action.</h2>
+
+    <div class="recommendations">
+
+      <div class="recommendation">
+        <div class="rec-number">01</div>
+        <div>
+          <h3>Q4 readiness</h3>
+          <p>
+            Use Q3 as a formal preparation window for inventory, supplier
+            capacity, staffing, fulfilment capability, marketing activity
+            and cash-flow planning ahead of recurring Q4 demand.
+          </p>
+        </div>
+      </div>
+
+      <div class="recommendation">
+        <div class="rec-number">02</div>
+        <div>
+          <h3>Product portfolio resilience</h3>
+          <p>
+            Protect the strength of the Classic Cars category while building
+            evidence on adjacent categories to reduce concentration risk
+            without sacrificing the strongest commercial franchise.
+          </p>
+        </div>
+      </div>
+
+      <div class="recommendation">
+        <div class="rec-number">03</div>
+        <div>
+          <h3>Market development</h3>
+          <p>
+            Protect the economics of the US market while testing selective
+            growth opportunities in Spain, France and other markets with
+            sufficient revenue density.
+          </p>
+        </div>
+      </div>
+
+      <div class="recommendation">
+        <div class="rec-number">04</div>
+        <div>
+          <h3>Key-account discipline</h3>
+          <p>
+            Introduce structured account ownership, retention monitoring
+            and cross-sell planning for the highest-value customers.
+          </p>
+        </div>
+      </div>
+
+      <div class="recommendation">
+        <div class="rec-number">05</div>
+        <div>
+          <h3>Operational exception management</h3>
+          <p>
+            Establish recurring review of cancelled, disputed and on-hold
+            orders with root-cause coding, ownership, ageing and resolution
+            tracking.
+          </p>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+
+<section class="skills">
+  <div class="container">
+
+    <div class="section-label">Capability Demonstrated</div>
+
+    <h2>From raw operational data to executive decision support.</h2>
+
+    <div class="skill-grid">
+
+      <div class="skill">
+        <h3>Data Preparation</h3>
+        <p>
+          Structured Excel tables, data validation, type review and revenue derivation.
+        </p>
+      </div>
+
+      <div class="skill">
+        <h3>Data Modelling</h3>
+        <p>
+          Relational model linking orders, customers, products, payments,
+          employees and offices.
+        </p>
+      </div>
+
+      <div class="skill">
+        <h3>DAX & KPI Logic</h3>
+        <p>
+          Filter-aware measures designed around valid analytical context.
+        </p>
+      </div>
+
+      <div class="skill">
+        <h3>Executive Reporting</h3>
+        <p>
+          PivotTables, PivotCharts, slicers, KPI cards and trend analysis.
+        </p>
+      </div>
+
+      <div class="skill">
+        <h3>Business Analysis</h3>
+        <p>
+          Trend, seasonality, concentration, market, customer and fulfilment analysis.
+        </p>
+      </div>
+
+      <div class="skill">
+        <h3>Management Communication</h3>
+        <p>
+          Material findings translated into implications and prioritised business actions.
+        </p>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+
+<section class="cta">
+  <div class="container">
+
+    <div class="section-label">Full Case Study</div>
+
+    <h2>Explore the complete analysis.</h2>
+
+    <p>
+      The full case study contains the analytical architecture, detailed findings,
+      management implications, reporting controls and technical evidence behind
+      the Executive Business Intelligence Suite.
+    </p>
+
+    <a class="button button-primary"
+       href="../assets/documents/executive-bi-case-study.pdf"
+       target="_blank">
+      Open Case Study PDF
+    </a>
+
+  </div>
+</section>
+
+
+<footer>
+  <div class="container footer-inner">
+    <span>© 2026 Wandile Bingo</span>
+    <span>Business Analyst · Data Analytics · Business Operations</span>
+  </div>
+</footer>
+
+</body>
+</html>
